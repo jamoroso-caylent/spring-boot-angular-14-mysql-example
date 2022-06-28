@@ -6,6 +6,7 @@ phases:
       java: openjdk11
   pre_build:
     commands:
+      - cd ..
       - TEST=$(git describe --exact-match $CODEBUILD_RESOLVED_SOURCE_VERSION)
       - echo $TEST
       - echo Logging in to Amazon ECR...
