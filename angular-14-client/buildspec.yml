@@ -9,13 +9,12 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - echo Installing source NPM dependencies...
-      - npm install
       - npm install -g @angular/cli
   build:
     commands:
       - echo Build started on `date`
       - cd angular-14-client
-      - ng build
+      - npm install && ng build
       - echo Building the Docker image...          
       - docker build -t $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION .
   post_build:
