@@ -14,12 +14,10 @@ phases:
       - cd spring-boot-server
       - mvn install -Dmaven.test.skip=true
       - echo Building the Docker image...          
-      - docker build -t $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION .
-      - docker tag $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION $IMAGE_REPO_URL:latest
+      - docker build -t $IMAGE_REPO_URL:$ENV-$CODEBUILD_RESOLVED_SOURCE_VERSION .
 
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $IMAGE_REPO_URL:$CODEBUILD_RESOLVED_SOURCE_VERSION
-      - docker push $IMAGE_REPO_URL:latest
+      - docker push $IMAGE_REPO_URL:$ENV-$CODEBUILD_RESOLVED_SOURCE_VERSION
